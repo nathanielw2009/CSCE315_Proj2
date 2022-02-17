@@ -10,6 +10,7 @@ public class importInvoiceDB {
         ArrayList<ArrayList<String>> matrix = Csv2Array(filename);
 
         // TODO: Parse matrix and send to the database
+
         return 0;
     }
 
