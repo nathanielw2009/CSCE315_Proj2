@@ -22,6 +22,7 @@ public class importDataCL {
         String fileName = Objects.requireNonNull(directory.listFiles())[inputRead.nextInt()].getName();
 
         // Database Information
+        inputRead.nextLine();
         System.out.print("Connection URL: ");
         String dbUrl = inputRead.nextLine();
         System.out.print("UserName: ");
@@ -31,23 +32,30 @@ public class importDataCL {
         inputRead.close();
 
         // Attempt Connection to Database
-
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
         }catch (Exception e){
             System.out.println("Connection Failed :(");
+            e.printStackTrace();
             System.exit(0);
         }
         System.out.println("\n Connection Succeeded!");
 
         // Use that Connection to Parse the file
 
-        if(importInvoiceDB.importFile(conn, fileName) >= 0){
+        if(importInvoiceDB.importItemsFromInvoice(conn, fileName) >= 0){
             System.out.println("Finished Successfully!");
         }else{
-            System.out.println("An issue has occured!");
+            System.out.println("An issue has occurred!");
         }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         System.exit(0);
     }
 }
