@@ -1,4 +1,6 @@
 package import_scripts;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,16 +19,72 @@ public class importInvoiceDB {
     private static final int CATEGORY = 10;
     private static final int LONG_DESCRIPTION = 12;
 
-    public static int importFile(Connection conn, String filename) {
-        ArrayList<ArrayList<String>> matrix = Csv2Array(filename);
-        for(int i = START_ROW; i < matrix.size(); i++){
-
+    public static int importInvoiceInfo(@NotNull Connection conn, String filename) {
+        // Create Statement from database
+        Statement stmt= null;
+        StringBuilder sqlQ;
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
         }
 
+        // Parse CSV file
+        ArrayList<ArrayList<String>> matrix = Csv2Array(filename);
+
+        sqlQ = new StringBuilder("""
+                INSERT inventory_items (sku, quantity, price_total)
+                VALUES
+                """);
+
+        for(int i = START_ROW; i < matrix.size(); i++){
+            ArrayList<String> currentRow = matrix.get(i);
+
+            if(currentRow.size() < 12){
+                continue;
+            }
+
+            sqlQ.append("(").append(currentRow.get(SKU)).
+                    append(", ").append(currentRow.get(DELIVERED)).
+                    append(", ").append(currentRow.get(TOTAL)).append("), \n");
+        }
+
+        sqlQ = new StringBuilder(sqlQ.substring(0, sqlQ.lastIndexOf(",")) + ";");
+
+        // Verification
+        System.out.println(sqlQ);
+        System.out.println("Does this seem correct? (y/n): ");
+        Scanner inputText = new Scanner(System.in);
+
+        // Execution
+        if(inputText.nextLine().equals("y")){
+            try {
+                stmt.executeUpdate(sqlQ.toString());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            System.out.println("Oh well, Have a nice Day!");
+            return -1;
+        }
+        inputText.close();
+        try {
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        try {
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
         return 0;
     }
 
-    public static int  importItemsFromInvoice(Connection conn, String filename){
+    public static int  importItemsFromInvoice(@NotNull Connection conn, String filename){
         // Create Statement from database
         Statement stmt= null;
         StringBuilder sqlQ;

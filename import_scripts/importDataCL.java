@@ -18,6 +18,7 @@ public class importDataCL {
 
         // File Selection
         Scanner inputRead = new Scanner(System.in);
+
         System.out.print("\nSelection Number: ");
         String fileName = Objects.requireNonNull(directory.listFiles())[inputRead.nextInt()].getName();
 
@@ -43,11 +44,23 @@ public class importDataCL {
         System.out.println("\n Connection Succeeded!");
 
         // Use that Connection to Parse the file
+        inputRead.nextLine();
+        System.out.println("Want to import to invoice (0) or inventory items (1): ");
+        int userResponse = inputRead.nextInt();
+        inputRead.close();
 
-        if(importInvoiceDB.importItemsFromInvoice(conn, fileName) >= 0){
-            System.out.println("Finished Successfully!");
+        if(userResponse == 0){
+            if(importInvoiceDB.importInvoiceInfo(conn, fileName) >= 0){
+                System.out.println("Finished Successfully!");
+            }else{
+                System.out.println("An issue has occurred!");
+            }
         }else{
-            System.out.println("An issue has occurred!");
+            if(importInvoiceDB.importItemsFromInvoice(conn, fileName) >= 0){
+                System.out.println("Finished Successfully!");
+            }else{
+                System.out.println("An issue has occurred!");
+            }
         }
 
         try {
