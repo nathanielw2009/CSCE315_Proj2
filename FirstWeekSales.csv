@@ -1,5 +1,5 @@
 Day,Order sumary,,, Totals 
-Sunday,Item,Quantity,Total," $1,683.75 "
+2022-02-13,Item,Quantity,Total," $1,683.75 "
 ,501,25,,
 ,502,25,,
 ,503,25,,
@@ -20,7 +20,7 @@ Sunday,Item,Quantity,Total," $1,683.75 "
 ,518,50,,
 ,519,25,,
 ,,,,
-Monday,Item,Quantity,Total," $1,314.25 "
+2022-02-14,Item,Quantity,Total," $1,314.25 "
 ,501,20,,
 ,502,25,,
 ,503,22,,
@@ -41,7 +41,7 @@ Monday,Item,Quantity,Total," $1,314.25 "
 ,518,50,,
 ,519,25,,
 ,,,,
-Tuesday,Item,Quantity,Total," $1,508.75 "
+2022-02-15,Item,Quantity,Total," $1,508.75 "
 ,501,27,,
 ,502,30,,
 ,503,30,,
@@ -62,7 +62,7 @@ Tuesday,Item,Quantity,Total," $1,508.75 "
 ,518,50,,
 ,519,25,,
 ,,,,
-Wednesday,Item,Quantity,Total," $1,818.30 "
+2022-02-16,Item,Quantity,Total," $1,818.30 "
 ,501,36,,
 ,502,36,,
 ,503,36,,
@@ -83,7 +83,7 @@ Wednesday,Item,Quantity,Total," $1,818.30 "
 ,518,60,,
 ,519,30,,
 ,,,,
-Thursday,Item,Quantity,Total," $2,319.10 "
+2022-02-17,Item,Quantity,Total," $2,319.10 "
 ,501,46,,
 ,502,46,,
 ,503,46,,
@@ -104,7 +104,7 @@ Thursday,Item,Quantity,Total," $2,319.10 "
 ,518,78,,
 ,519,39,,
 ,,,,
-Friday,Item,Quantity,Total," $2,753.10 "
+2022-02-18,Item,Quantity,Total," $2,753.10 "
 ,501,46,,
 ,502,46,,
 ,503,46,,
@@ -125,7 +125,7 @@ Friday,Item,Quantity,Total," $2,753.10 "
 ,518,78,,
 ,519,39,,
 ,,,,
-Saturday,Item,Quantity,Total," $3,808.10 "
+2022-02-19,Item,Quantity,Total," $3,808.10 "
 ,501,64,,
 ,502,64,,
 ,503,64,,

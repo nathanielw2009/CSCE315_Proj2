@@ -18,6 +18,8 @@ public class importInvoiceDB {
     private static final int TOTAL = 9;
     private static final int CATEGORY = 10;
     private static final int LONG_DESCRIPTION = 12;
+    private static final int DATE_COL = 6;
+    private static final int DATE_ROW = 0;
 
     public static int importInvoiceInfo(@NotNull Connection conn, String filename) {
         // Create Statement from database
@@ -32,9 +34,10 @@ public class importInvoiceDB {
 
         // Parse CSV file
         ArrayList<ArrayList<String>> matrix = Csv2Array(filename);
+        String DateInv = matrix.get(DATE_ROW).get(DATE_COL);
 
         sqlQ = new StringBuilder("""
-                INSERT inventory_items (sku, quantity, price_total)
+                INSERT INTO invoice_line (sku, quantity, price_total)
                 VALUES
                 """);
 
@@ -45,30 +48,67 @@ public class importInvoiceDB {
                 continue;
             }
 
-            sqlQ.append("(").append(currentRow.get(SKU)).
-                    append(", ").append(currentRow.get(DELIVERED)).
-                    append(", ").append(currentRow.get(TOTAL)).append("), \n");
+            sqlQ.append("(").append(currentRow.get(SKU).replaceAll("\"", "")).
+                    append(", ").append(currentRow.get(DELIVERED).replaceAll("\"", "")).
+                    append(", ").append(currentRow.get(TOTAL).replaceAll("\"", "")).append("), \n");
         }
 
-        sqlQ = new StringBuilder(sqlQ.substring(0, sqlQ.lastIndexOf(",")) + ";");
+        sqlQ = new StringBuilder(sqlQ.substring(0, sqlQ.lastIndexOf(",")));
+        sqlQ.append(" RETURNING inv_line_entry_no;");
+        System.out.println(sqlQ.toString());
 
-        // Verification
-        System.out.println(sqlQ);
-        System.out.println("Does this seem correct? (y/n): ");
-        Scanner inputText = new Scanner(System.in);
 
         // Execution
-        if(inputText.nextLine().equals("y")){
-            try {
-                stmt.executeUpdate(sqlQ.toString());
-            } catch (SQLException e) {
-                e.printStackTrace();
+        ResultSet response = null;
+        ArrayList<Integer> invLineNo = new ArrayList<Integer>();
+        String invoiceId = "";
+
+        // Get InvoiceLineNO
+        try {
+            response = stmt.executeQuery(sqlQ.toString());
+            while (response.next()){
+                invLineNo.add(response.getInt("inv_line_entry_no"));
             }
-        }else{
-            System.out.println("Oh well, Have a nice Day!");
-            return -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
         }
-        inputText.close();
+
+        sqlQ = new StringBuilder(" INSERT INTO invoices (invoice_id, date) " +
+                "VALUES (DEFAULT, "+DateInv+") RETURNING invoice_id;");
+
+        System.out.println(sqlQ.toString());
+
+        try {
+            response = stmt.executeQuery(sqlQ.toString());
+            while (response.next()){
+                invoiceId = response.getString("invoice_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+        }
+
+        sqlQ = new StringBuilder(" INSERT INTO invoices_entry (invoices_id, invoice_line_no)\nVALUES\n");
+
+        for(int lineNo : invLineNo){
+            sqlQ.append("( ").append("'").append(invoiceId).append("'").append(", ").append(lineNo).append("), \n");
+        }
+
+        sqlQ = new StringBuilder(sqlQ.substring(0, sqlQ.lastIndexOf(","))+";");
+        System.out.println(sqlQ.toString());
+
+        return executeQueryStrBuilder(stmt, sqlQ, conn);
+    }
+
+    protected static int executeQueryStrBuilder(Statement stmt, StringBuilder sqlQ, @NotNull Connection conn) {
+        try {
+            stmt.executeUpdate(sqlQ.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+        }
+
         try {
             stmt.close();
         } catch (SQLException e) {
@@ -99,7 +139,7 @@ public class importInvoiceDB {
         ArrayList<ArrayList<String>> matrix = Csv2Array(filename);
 
         sqlQ = new StringBuilder("""
-                INSERT inventory_items (sku, quantity, category, price, description, quantity_per_order, usage_category)
+                INSERT INTO inventory_items (sku, quantity, category, price, description, quantity_per_order, usage_category)
                 VALUES
                 """);
         String CAT_CURRENT = "NONE";
@@ -125,40 +165,14 @@ public class importInvoiceDB {
         }
         sqlQ = new StringBuilder(sqlQ.substring(0, sqlQ.lastIndexOf(",")) + ";");
 
-        // Verification
         System.out.println(sqlQ);
-        System.out.println("Does this seem correct? (y/n): ");
-        Scanner inputText = new Scanner(System.in);
 
         // Execution
-        if(inputText.nextLine().equals("y")){
-            try {
-                stmt.executeUpdate(sqlQ.toString());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else{
-            System.out.println("Oh well, Have a nice Day!");
-            return -1;
-        }
-        inputText.close();
-        try {
-            stmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-        try {
-            conn.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-        return 0;
+        return executeQueryStrBuilder(stmt, sqlQ, conn);
     }
 
 
-    private static ArrayList<ArrayList<String>> Csv2Array(String filename){
+    protected static ArrayList<ArrayList<String>> Csv2Array(String filename){
         // Read File
         File fileToRead = new File(filename);
         Scanner fileReader = null;
@@ -175,7 +189,12 @@ public class importInvoiceDB {
         ArrayList<ArrayList<String>> matrix = new ArrayList<>();
         while(fileReader.hasNext()){
             String currentLine = fileReader.nextLine();
-            matrix.add(new ArrayList<>(Arrays.asList(currentLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"))));
+            String[] row = currentLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+            for(int i = 0; i < row.length; i++){
+                row[i] = "'"+row[i].replaceAll("'", "''")+"'";
+            }
+
+            matrix.add(new ArrayList<>(Arrays.asList(row)));
         }
         return matrix;
     }

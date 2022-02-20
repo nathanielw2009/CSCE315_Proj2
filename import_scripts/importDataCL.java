@@ -30,7 +30,6 @@ public class importDataCL {
         String dbUser = inputRead.nextLine();
         System.out.print("Password: ");
         String dbPass = inputRead.nextLine();
-        inputRead.close();
 
         // Attempt Connection to Database
         Connection conn = null;
@@ -42,10 +41,15 @@ public class importDataCL {
             System.exit(0);
         }
         System.out.println("\n Connection Succeeded!");
+        try {
+            conn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         // Use that Connection to Parse the file
-        inputRead.nextLine();
-        System.out.println("Want to import to invoice (0) or inventory items (1): ");
+        System.out.println("Want to import to invoice (0) or inventory items (1) or Order (2): ");
         int userResponse = inputRead.nextInt();
         inputRead.close();
 
@@ -55,8 +59,14 @@ public class importDataCL {
             }else{
                 System.out.println("An issue has occurred!");
             }
-        }else{
+        }else if(userResponse == 1){
             if(importInvoiceDB.importItemsFromInvoice(conn, fileName) >= 0){
+                System.out.println("Finished Successfully!");
+            }else{
+                System.out.println("An issue has occurred!");
+            }
+        }else{
+            if(importOrderDB.importOrderFromCSV(conn, fileName) >= 0){
                 System.out.println("Finished Successfully!");
             }else{
                 System.out.println("An issue has occurred!");
