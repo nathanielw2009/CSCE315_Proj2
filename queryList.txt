@@ -80,6 +80,75 @@ SELECT D.menu_id, D.count, V.price AS "per one", D.count * V.price AS "Total"
                               ON D.menu_id = V.menu_id
             ) T;
 
+// Update the inventory based on the invoices of a specific date
+UPDATE inventory_items invI
+SET quantity = invQ.new_quantity
+FROM (SELECT H.description ,H.sku, invLine.new_quantity as to_add_quantity, H.quantity as old_quantity, H.quantity + invLine.new_quantity as new_quantity
+FROM (SELECT D.sku, D.quantity AS new_quantity
+FROM invoice_line D, (SELECT invoice_line_no
+    FROM invoices_entry
+    WHERE invoices_id = (SELECT invoice_id
+        FROM invoices
+        WHERE date = '2022-02-12')) T
+WHERE D.inv_line_entry_no = T.invoice_line_no AND D.has_been_added_to_inventory = false) invLine,
+
+inventory_items H
+
+WHERE H.sku = invLine.sku) invQ
+WHERE invI.sku = invQ.sku
+
+UPDATE invoice_line invL
+SET has_been_added_to_inventory = true
+FROM (SELECT H.description ,H.sku, invLine.new_quantity as to_add_quantity, H.quantity as old_quantity, H.quantity + invLine.new_quantity as new_quantity
+FROM (SELECT D.sku, D.quantity AS new_quantity
+FROM invoice_line D, (SELECT invoice_line_no
+    FROM invoices_entry
+    WHERE invoices_id = (SELECT invoice_id
+        FROM invoices
+        WHERE date = '2022-02-12')) T
+WHERE D.inv_line_entry_no = T.invoice_line_no AND D.has_been_added_to_inventory = false) invLine,
+
+inventory_items H
+
+WHERE H.sku = invLine.sku) invQ
+WHERE invQ.sku = invL.sku
+
+// Get number of food items use per date (chicken tender, fries)
+
+SELECT orderT.order_date, menFoLink.food_id, COUNT(menFoLink.food_id) as amount_orders
+
+FROM (SELECT  order_id, order_date
+    FROM "order"
+    WHERE order_date between '2022-02-13' AND '2022-02-19') orderT,
+    order_menu_link ordMenLink,
+    menu_food_link menFoLink
+
+WHERE orderT.order_id = ordMenLink.order_id AND
+    menFoLink.menu_id = ordMenLink.menu_id
+GROUP BY menFoLink.food_id, orderT.order_date
+
+// See which food id uses what inventory items
+
+SELECT invItem.description, fi.food_id, fi. ,fi.sku, amountOrder.amount_orders, fi.quantity_used_per_food
+FROM
+    (SELECT orderT.order_date, menFoLink.food_id, COUNT(menFoLink.food_id) as amount_orders
+
+    FROM (SELECT  order_id, order_date
+        FROM "order"
+        WHERE order_date between '2022-02-13' AND '2022-02-19') orderT,
+        order_menu_link ordMenLink,
+        menu_food_link menFoLink
+
+    WHERE orderT.order_id = ordMenLink.order_id AND
+        menFoLink.menu_id = ordMenLink.menu_id
+    GROUP BY menFoLink.food_id, orderT.order_date) amountOrder,
+    food_inventory fi,
+    inventory_items invItem
+
+WHERE amountOrder.food_id = fi.food_id
+
+GROUP BY fi.food_id, fi.sku, amountOrder.amount_orders, fi.quantity_used_per_food, invItem.description
+
 //Display the food_and_drinks table -------------------------------------------------
         SELECT * FROM food_and_drinks;
 
