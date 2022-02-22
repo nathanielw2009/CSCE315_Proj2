@@ -1,0 +1,81 @@
+// Check not added inventory items from a date  -------------------------------------------
+
+SELECT H.description ,H.sku, invLine.new_quantity as to_add_quantity, H.quantity as old_quantity, H.quantity + invLine.new_quantity as new_quantity
+FROM (SELECT D.sku, D.quantity AS new_quantity
+FROM invoice_line D, (SELECT invoice_line_no
+    FROM invoices_entry
+    WHERE invoices_id = (SELECT invoice_id
+        FROM invoices
+        WHERE date = '2022-02-12')) T
+WHERE D.inv_line_entry_no = T.invoice_line_no AND D.has_been_added_to_inventory = false) invLine,
+
+inventory_items H
+
+WHERE H.sku = invLine.sku
+
+// Check how many orders of a Specific date plus their prices and total -----------------
+
+SELECT D.menu_id, D.count, V.price AS "per one", D.count * V.price AS "Total"
+                FROM (SELECT menu_id, COUNT(menu_id)
+                      FROM (
+                               SELECT menu_id
+                               FROM order_menu_link
+                               WHERE order_id IN (
+                                   SELECT order_id AS "resp"
+                                   FROM "order"
+                                   WHERE order_date = '2022-02-13'
+                               )
+                           ) AS T
+                      GROUP BY menu_id) D
+                         JOIN (SELECT t1.menu_id, t1.price
+                               FROM menu t1
+                               WHERE menu_id IN (
+                                   SELECT menu_id
+                                   FROM (
+                                            SELECT menu_id
+                                            FROM order_menu_link
+                                            WHERE order_id IN (
+                                                SELECT order_id AS "resp"
+                                                FROM "order"
+                                                WHERE order_date = '2022-02-13'
+                                            )
+                                        ) AS T
+                                   GROUP BY menu_id
+                               )
+                ) V
+                              ON D.menu_id = V.menu_id
+
+// Check the total amount of money from specifc date --------------------------------
+
+        SELECT  sum(T."Total")
+            FROM (
+                SELECT D.menu_id, D.count, V.price AS "per one", D.count * V.price AS "Total"
+                FROM (SELECT menu_id, COUNT(menu_id)
+                      FROM (
+                               SELECT menu_id
+                               FROM order_menu_link
+                               WHERE order_id IN (
+                                   SELECT order_id AS "resp"
+                                   FROM "order"
+                                   WHERE order_date = '2022-02-13'
+                               )
+                           ) AS T
+                      GROUP BY menu_id) D
+                         JOIN (SELECT t1.menu_id, t1.price
+                               FROM menu t1
+                               WHERE menu_id IN (
+                                   SELECT menu_id
+                                   FROM (
+                                            SELECT menu_id
+                                            FROM order_menu_link
+                                            WHERE order_id IN (
+                                                SELECT order_id AS "resp"
+                                                FROM "order"
+                                                WHERE order_date = '2022-02-13'
+                                            )
+                                        ) AS T
+                                   GROUP BY menu_id
+                               )
+                ) V
+                              ON D.menu_id = V.menu_id
+            ) T;
