@@ -79,12 +79,20 @@ SELECT D.menu_id, D.count, V.price AS "per one", D.count * V.price AS "Total"
                 ) V
                               ON D.menu_id = V.menu_id
             ) T;
-            
+
 // Display Top 10 inventory entries by quantity ---------------------------
         SELECT * FROM inventory_items
         ORDER BY quantity DESC
         LIMIT 10; 
-        
+
+// Display Top 10 inventory entries by lowest quantity ---------------------------
+        SELECT * FROM inventory_items
+        ORDER BY quantity ASC
+        LIMIT 10; 
+
+// Display All extra/utensil items for customers---------------------------
+        SELECT description, usage_category FROM inventory_items
+        WHERE usage_category LIKE '%Serving%'; 
 
 // Display Top 10 most expensive inventory items -----------------------------------
         SELECT sku, description, quantity, price, quantity*price AS totalValue FROM inventory_items
