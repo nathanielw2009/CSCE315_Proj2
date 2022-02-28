@@ -8,4 +8,5 @@ module main.employee {
 
     opens main.employee to javafx.fxml;
     exports main.employee;
+    exports main.employee.FoodIconBox;
 }
