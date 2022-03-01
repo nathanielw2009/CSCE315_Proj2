@@ -138,8 +138,8 @@ public class dbConnections {
         for(int i = 0;i < colVal.size() -1 ;i++){
             query.append(colVal.get(i)).append(" = ").append(values.get(colVal.get(i))).append(", \n");
         }
-        query.append(colVal.get(colVal.size() -1)).append(" = ").append(values.get(colVal.get(colVal.size()-1)));
-        query.append("WHERE ").append(whereCol).append(" = ").append(isEqualTo).append(";");
+        query.append(colVal.get(colVal.size() -1)).append(" = ").append("'").append(values.get(colVal.get(colVal.size()-1))).append("'");
+        query.append("WHERE ").append(whereCol).append(" = ").append("'").append(isEqualTo).append("'").append(";");
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
@@ -184,23 +184,23 @@ public class dbConnections {
             query.append(insertCol.get(i) + ", ");
 
         }
-        query.append(insertCol.get(insertCol.size()-1)).append("\nVALUES\n");
+        query.append(insertCol.get(insertCol.size()-1)).append(") ").append("\nVALUES\n");
 
         // Parse insertData
 
         for(int i =0; i<insertData.size() -1 ;i++){
             query.append("( ");
             for(int j = 0; j< insertCol.size() -1; j++){
-                query.append(insertData.get(i).get(insertCol.get(j))).append(", ");
+                query.append("'").append(insertData.get(i).get(insertCol.get(j))).append("'").append(", ");
             }
-            query.append(insertData.get(i).get(insertCol.get(insertCol.size() -1))).append("), \n");
+            query.append("'").append(insertData.get(i).get(insertCol.get(insertCol.size() -1))).append("'").append("), \n");
         }
 
         query.append("( ");
         for(int j = 0; j< insertCol.size() -1; j++){
-            query.append(insertData.get(insertData.size() -1).get(insertCol.get(j))).append(", ");
+            query.append("'").append(insertData.get(insertData.size() -1).get(insertCol.get(j))).append("'").append(", ");
         }
-        query.append(insertData.get(insertData.size() -1).get(insertCol.get(insertCol.size() -1))).append(") \n");
+        query.append("'").append(insertData.get(insertData.size() -1).get(insertCol.get(insertCol.size() -1))).append("'").append(") \n");
 
         if(returnColumns.size() > 0){
             query.append("RETURNING ");
@@ -225,14 +225,16 @@ public class dbConnections {
         }
 
         try {
-            ResultSet resp = stmt.executeQuery(query.toString());
             if(returnColumns.size() > 0){
+                ResultSet resp = stmt.executeQuery(query.toString());
                 while (resp.next()){
                     data.add(new HashMap<String, String>());
                     for(String col : returnColumns){
                         data.get(data.size()-1).put(col, resp.getString(col));
                     }
                 }
+            }else{
+                stmt.executeUpdate(query.toString());
             }
 
         } catch (SQLException e) {

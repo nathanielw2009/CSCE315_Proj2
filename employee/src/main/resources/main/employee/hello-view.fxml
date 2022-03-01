@@ -46,7 +46,7 @@
                   </Label>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="87.0" prefWidth="203.0">
                      <children>
-                        <Button contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" text="Finish Order" />
+                        <Button fx:id="SB" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" text="Finish Order" />
                      </children>
                   </FlowPane>
                </children>
