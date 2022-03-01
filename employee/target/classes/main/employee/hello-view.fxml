@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="678.0" prefWidth="1045.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.employee.MainController">
+   <children>
+      <BorderPane prefHeight="678.0" prefWidth="1045.0">
+         <left>
+            <VBox prefHeight="604.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="215.0" text="Categories" />
+                  <VBox fx:id="catlist" prefHeight="497.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <HBox prefHeight="74.0" prefWidth="1045.0" BorderPane.alignment="CENTER" />
+         </top>
+         <right>
+            <VBox alignment="CENTER" prefHeight="604.0" prefWidth="203.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" prefHeight="80.0" prefWidth="203.0" text="Checkout" />
+                  <HBox prefHeight="441.0" prefWidth="203.0">
+                     <children>
+                        <ListView fx:id="checkID" prefHeight="440.0" prefWidth="159.0" />
+                        <ListView fx:id="checkName" prefHeight="440.0" prefWidth="204.0" />
+                        <ListView fx:id="checkPrice" prefHeight="440.0" prefWidth="170.0" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="totalLabel" text="\$0.00">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="87.0" prefWidth="203.0">
+                     <children>
+                        <Button contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" text="Finish Order" />
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </right>
+         <center>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <content>
+                  <GridPane fx:id="foodGrid" prefHeight="600.0" prefWidth="640.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+      <Label text="Label" />
+   </children>
+</AnchorPane>
