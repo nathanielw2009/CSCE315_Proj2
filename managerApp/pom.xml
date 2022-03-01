@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>main</groupId>
-    <artifactId>manager</artifactId>
+    <artifactId>managerApp</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>manager</name>
+    <name>managerApp</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -64,7 +64,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>main.manager/main.manager.HelloApplication</mainClass>
+                            <mainClass>main.managerapp/main.managerapp.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

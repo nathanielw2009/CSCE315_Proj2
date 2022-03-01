@@ -1,9 +1,9 @@
-module main.manager {
+module main.managerapp {
     requires javafx.controls;
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
 
-    opens main.manager to javafx.fxml;
-    exports main.manager;
+    opens main.managerapp to javafx.fxml;
+    exports main.managerapp;
 }

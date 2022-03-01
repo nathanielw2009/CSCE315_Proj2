@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="employee" />
+        <module name="managerApp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="employee" target="17" />
       <module name="frontend" target="17" />
+      <module name="managerApp" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
