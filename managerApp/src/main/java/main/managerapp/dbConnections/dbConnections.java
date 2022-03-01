@@ -139,6 +139,7 @@ public class dbConnections {
         query.append(colVal.get(colVal.size() -1)).append(" = ").append("'").append(values.get(colVal.get(colVal.size()-1))).append("'");
         query.append("WHERE ").append(whereCol).append(" = ").append("'").append(isEqualTo).append("'").append(";");
         Statement stmt = null;
+        System.out.println(query);
         try {
             stmt = conn.createStatement();
         } catch (SQLException e) {
