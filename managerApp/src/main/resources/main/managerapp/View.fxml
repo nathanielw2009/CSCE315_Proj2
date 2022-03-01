@@ -1,138 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" prefHeight="649.0" prefWidth="1037.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.managerapp.MainController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-   <HBox prefHeight="100.0" prefWidth="854.0">
-      <children>
-         <Button mnemonicParsing="false" prefHeight="69.0" prefWidth="255.0" text="Home">
-            <HBox.margin>
-               <Insets left="50.0" right="50.0" />
-            </HBox.margin>
-         </Button>
-         <Button mnemonicParsing="false" prefHeight="69.0" prefWidth="255.0" text="Finance">
-            <HBox.margin>
-               <Insets left="50.0" right="50.0" />
-            </HBox.margin>
-         </Button>
-         <Button mnemonicParsing="false" prefHeight="69.0" prefWidth="255.0" text="Inventory">
-            <HBox.margin>
-               <Insets left="50.0" right="50.0" />
-            </HBox.margin>
-         </Button>
-      </children>
-   </HBox>
-
-    <Label fx:id="welcomeText" />
-   <Pane prefHeight="280.0" prefWidth="982.0">
-      <children>
-          <Button alignment="CENTER" layoutX="900.0" layoutY="5.0" onAction="#onAddButtonClick" prefHeight="52.0" prefWidth="90.0" text="Add Item" />
-          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="900.0" layoutY="66.0" onAction="#onItemButtonClick" prefHeight="52.0" prefWidth="90.0" text="Update Item" />
-         <TextArea editable="false" prefHeight="61.0" prefWidth="106.0" text="501&#10;5 Finger Original&#10;Price: $6.50">
-            <opaqueInsets>
-               <Insets left="5.0" top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="106.0" prefHeight="61.0" prefWidth="106.0" text="502&#10;4 Finger Original&#10;Price: $5.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="212.0" prefHeight="61.0" prefWidth="106.0" text="503&#10;3 Finger Original&#10;Price: $4.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="318.0" prefHeight="61.0" prefWidth="106.0" text="504&#10;Kids Meal&#10;Price: $2.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="424.0" prefHeight="61.0" prefWidth="106.0" text="506&#10;Family Pack&#10;Price: $32.00">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutY="62.0" prefHeight="61.0" prefWidth="106.0" text="507&#10;Club Sand Meal&#10;Price: $6.75">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="106.0" layoutY="61.0" prefHeight="61.0" prefWidth="106.0" text="508&#10;Club Sand Only&#10;Price: $4.75">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="212.0" layoutY="61.0" prefHeight="61.0" prefWidth="106.0" text="509&#10;Sand Meal&#10;Price: $5.75">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="318.0" layoutY="61.0" prefHeight="61.0" prefWidth="106.0" text="510&#10;Sand Only&#10;Price: $3.75">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="424.0" layoutY="61.0" prefHeight="61.0" prefWidth="106.0" text="511&#10;Grill Chees Meal&#10;Price: $4.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="530.0" layoutY="61.0" prefHeight="61.0" prefWidth="106.0" text="512&#10;Grill Chees Only&#10;Price: $3.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutY="122.0" prefHeight="69.0" prefWidth="106.0" text="513&#10;Layne's Sauce&#10;Price: $0.10">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="106.0" layoutY="123.0" prefHeight="69.0" prefWidth="106.0" text="514&#10;Chicken Finger&#10;Price: $1.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="212.0" layoutY="123.0" prefHeight="69.0" prefWidth="106.0" text="516&#10;Potato Salad&#10;Price: $1.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="318.0" layoutY="123.0" prefHeight="69.0" prefWidth="106.0" text="517&#10;Crinkle Cut Fries&#10;Price: $1.75">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="424.0" layoutY="123.0" prefHeight="69.0" prefWidth="106.0" text="515&#10;Texas Toast&#10;Price: $0.50">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutY="187.0" prefHeight="61.0" prefWidth="106.0" text="518&#10;Fountain Drink&#10;Price: $1.25">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="106.0" layoutY="187.0" prefHeight="61.0" prefWidth="106.0" text="519&#10;Bottle Drink&#10;Price: $2.00">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-         <TextArea editable="false" layoutX="212.0" layoutY="187.0" prefHeight="61.0" prefWidth="106.0" text="505&#10;Gallon of Tea&#10;Price: $5.00">
-            <opaqueInsets>
-               <Insets top="5.0" />
-            </opaqueInsets>
-         </TextArea>
-      </children>
-   </Pane>
-
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="822.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.managerapp.MainController">
+   <children>
+      <BorderPane prefHeight="830.0" prefWidth="1140.0">
+         <top>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
+         <right>
+            <VBox prefHeight="730.0" prefWidth="284.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="addMenuButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Add Menu" />
+                  <Button fx:id="updateMenuButton" mnemonicParsing="false" prefHeight="110.0" prefWidth="279.0" text="Update Menu" />
+                  <Button fx:id="addInventoryButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Add Inventory" />
+                  <Button fx:id="updateInventoryButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Update Inventory" />
+               </children>
+            </VBox>
+         </right>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ListView fx:id="menuList" prefHeight="730.0" prefWidth="746.0" />
+                  <ListView fx:id="inventoryList" prefHeight="730.0" prefWidth="671.0" />
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
