@@ -33,6 +33,9 @@ public class MainController {
     private Button updateInventoryButton;
 
     @FXML
+    private Button refreshButton;
+
+    @FXML
     private ListView<String> menuList;
 
     @FXML
@@ -107,6 +110,24 @@ public class MainController {
         stage.show();
     }
 
+    private void refreshHandler(MouseEvent mouseEvent) {
+        ArrayList<String> columns = new ArrayList<String>(Arrays.asList("menu_id", "menu_name", "menu_description"));
+        ArrayList<HashMap<String, String>> menuData = db.getColumns("menu", columns);
+
+        menuList.getItems().clear();
+        for(HashMap<String, String> m : menuData){
+            menuList.getItems().add(m.get("menu_id") + " | " + m.get("menu_name") + " | " + m.get("menu_description"));
+        }
+
+        inventoryList.getItems().clear();
+        columns = new ArrayList<String>(Arrays.asList("sku", "quantity", "category", "price"));
+        ArrayList<HashMap<String, String>> inventoryData = db.getColumns("inventory_items", columns);
+
+        for(HashMap<String, String> m : inventoryData){
+            inventoryList.getItems().add(m.get("sku") + " | "+ m.get("quantity") + " | " + m.get("category") + " | " + m.get("price"));
+        }
+    }
+
 
     public void initialize(){
         // Start Connection with Database
@@ -119,15 +140,16 @@ public class MainController {
         updateMenuButton.setOnMouseClicked(mouseEvent -> updateMenuHandler(mouseEvent));
         addInventoryButton.setOnMouseClicked(mouseEvent -> addInventoryHandler(mouseEvent));
         updateInventoryButton.setOnMouseClicked(mouseEvent -> updateInventoryHandler(mouseEvent));
+        refreshButton.setOnMouseClicked(mouseEvent -> refreshHandler(mouseEvent));
 
         for(HashMap<String, String> m : menuData){
             menuList.getItems().add(m.get("menu_id") + " | " + m.get("menu_name") + " | " + m.get("menu_description"));
         }
 
         columns = new ArrayList<String>(Arrays.asList("sku", "quantity", "category", "price"));
-        ArrayList<HashMap<String, String>> inventroyData = db.getColumns("inventory_items", columns);
+        ArrayList<HashMap<String, String>> inventoryData = db.getColumns("inventory_items", columns);
 
-        for(HashMap<String, String> m : inventroyData){
+        for(HashMap<String, String> m : inventoryData){
             inventoryList.getItems().add(m.get("sku") + " | "+ m.get("quantity") + " | " + m.get("category") + " | " + m.get("price"));
         }
 
