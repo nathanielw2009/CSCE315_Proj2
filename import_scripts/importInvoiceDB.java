@@ -1,5 +1,4 @@
 package import_scripts;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class importInvoiceDB {
     private static final int DATE_COL = 6;
     private static final int DATE_ROW = 0;
 
-    public static int importInvoiceInfo(@NotNull Connection conn, String filename) {
+    public static int importInvoiceInfo(Connection conn, String filename) {
         // Create Statement from database
         Statement stmt= null;
         StringBuilder sqlQ;
@@ -101,7 +100,7 @@ public class importInvoiceDB {
         return executeQueryStrBuilder(stmt, sqlQ, conn);
     }
 
-    protected static int executeQueryStrBuilder(Statement stmt, StringBuilder sqlQ, @NotNull Connection conn) {
+    protected static int executeQueryStrBuilder(Statement stmt, StringBuilder sqlQ, Connection conn) {
         try {
             stmt.executeUpdate(sqlQ.toString());
         } catch (SQLException e) {
@@ -124,7 +123,7 @@ public class importInvoiceDB {
         return 0;
     }
 
-    public static int  importItemsFromInvoice(@NotNull Connection conn, String filename){
+    public static int  importItemsFromInvoice( Connection conn, String filename){
         // Create Statement from database
         Statement stmt= null;
         StringBuilder sqlQ;

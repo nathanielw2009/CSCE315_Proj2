@@ -2,9 +2,6 @@
   <library name="javafx-sdk-17">
     <CLASSES />
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$USER_HOME$/Documents/libraries/java/javafx-sdk-17" />
-    </SOURCES>
-    <jarDirectory url="file://$USER_HOME$/Documents/libraries/java/javafx-sdk-17" recursive="false" type="SOURCES" />
+    <SOURCES />
   </library>
 </component>

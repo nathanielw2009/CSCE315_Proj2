@@ -1,47 +1,105 @@
 package main.employee;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import main.employee.FoodIconBox.FoodIconBox;
+import javafx.scene.layout.VBox;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
+import main.employee.dbConnections.dbConnections;
+
 
 public class MainController {
     @FXML
-    private Label welcomeText;
+    private VBox catlist;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private ListView<Integer> checkID;
 
     @FXML
-    private GridPane myGrid;
+    private ListView<String> checkName;
 
-    public void initialize(){
-        for(int i = 0; i < 3; i++){
-            Pane mp = null;
-            Pane mp1 = null;
-            Pane mp2 = null;
-            Pane mp3 = null;
-            try {
-                mp = FXMLLoader.load(FoodIconBox.class.getResource("FoodIconBox.fxml"));
-                mp1 = FXMLLoader.load(FoodIconBox.class.getResource("FoodIconBox.fxml"));
-                mp2 = FXMLLoader.load(FoodIconBox.class.getResource("FoodIconBox.fxml"));
-                mp3 = FXMLLoader.load(FoodIconBox.class.getResource("FoodIconBox.fxml"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            myGrid.add(mp,0,0);
-            myGrid.add(mp1,1,0);
-            myGrid.add(mp2,2,0);
-            myGrid.add(mp3,1,1);
+    @FXML
+    private ListView<String> checkPrice;
 
+    @FXML
+    private Label totalLabel;
+
+    @FXML
+    private GridPane foodGrid;
+
+    private dbConnections db;
+
+    HashMap<Integer, HashMap<String, String>> menuItems = new HashMap<Integer, HashMap<String, String>>();
+
+
+    public void buttonHandler(MouseEvent e){
+        Button pressed = (Button) e.getSource();
+        String id = pressed.getId();
+        int index = id.indexOf("FB:");
+        if(index > -1){
+            id = id.substring(index+3);
+            addToList(Integer.parseInt(id));
+        }
+        index = id.indexOf("SB:");
+        if(index > -1){
+            sendData();
         }
     }
+
+    public void sendData(){
+        ArrayList<HashMap<String, String>> dataSent = new ArrayList<>();
+
+        HashMap<String, String> hashSent = new HashMap<String, String>();
+        hashSent.put("order_date", "default");
+        hashSent.put("total_amount", "default");
+
+        dataSent.add(new HashMap<String, String>());
+
+        for(int id : checkID.getItems()){
+
+        }
+
+    }
+
+    public void addToList(int id){
+        checkID.getItems().add(id);
+        checkName.getItems().add(menuItems.get(id).get("menu_name"));
+        checkPrice.getItems().add("$"+menuItems.get(id).get("price"));
+        totalLabel.setText("$"+ String.format("%.2f" ,(Double.parseDouble(totalLabel.getText().substring(1))
+                +Double.parseDouble(menuItems.get(id).get("price")))) );
+    }
+
+
+    public void initialize(){
+        // Start Connection with Database
+        db = new dbConnections();
+
+        // GridPane
+        ArrayList<String> columns = new ArrayList<>(Arrays.asList("menu_id", "menu_name", "price"));
+        ArrayList<HashMap<String, String>> data = db.getColumns("menu", columns);
+
+        int i = 0;
+        for(HashMap<String,String> item : data){
+            Button d = new Button("Add \n"+item.get("menu_name")+"\nPrice: " + item.get("price"));
+            d.setId("FB:"+item.get("menu_id"));
+            d.setOnMouseClicked(mouseEvent -> buttonHandler(mouseEvent));
+            d.setContentDisplay(ContentDisplay.CENTER);
+            foodGrid.add(d, i%2, Math.floorDiv(i, 2));
+            i++;
+            HashMap<String, String> t = new HashMap<String, String>();
+            t.put("price", item.get("price").substring(1) );
+            t.put("menu_name", item.get("menu_name"));
+            menuItems.put(Integer.parseInt(item.get("menu_id")), t);
+        }
+    }
+
+
 }
