@@ -133,7 +133,7 @@ public class MainController {
         // Start Connection with Database
         db = new dbConnections();
 
-        ArrayList<String> columns = new ArrayList<String>(Arrays.asList("menu_id", "menu_name", "menu_description"));
+        ArrayList<String> columns = new ArrayList<String>(Arrays.asList("menu_id", "menu_name", "menu_description", "price"));
         ArrayList<HashMap<String, String>> menuData = db.getColumns("menu", columns);
 
         addMenuButton.setOnMouseClicked(mouseEvent -> addMenuHandler(mouseEvent));
@@ -143,7 +143,7 @@ public class MainController {
         refreshButton.setOnMouseClicked(mouseEvent -> refreshHandler(mouseEvent));
 
         for(HashMap<String, String> m : menuData){
-            menuList.getItems().add(m.get("menu_id") + " | " + m.get("menu_name") + " | " + m.get("menu_description"));
+            menuList.getItems().add(m.get("menu_id") + " | " + m.get("menu_name") + " | " + m.get("price") + " | " + m.get("menu_description"));
         }
 
         columns = new ArrayList<String>(Arrays.asList("sku", "quantity", "category", "price"));
