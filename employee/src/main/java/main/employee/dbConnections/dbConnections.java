@@ -61,6 +61,47 @@ public class dbConnections {
         }
     }
 
+    public ArrayList<HashMap<String,String>> customQuery(String query){
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        // Return Data
+        ArrayList<HashMap<String, String>> data = new ArrayList<>();
+
+        try {
+            ResultSet resp = stmt.executeQuery(query);
+            while (resp.next()){
+                data.add(new HashMap<String, String>());
+                for(int i = 0; i < resp.getMetaData().getColumnCount(); i++){
+                    data.get(data.size()-1).put(resp.getMetaData().getColumnName(i), resp.getString(resp.getMetaData().getColumnName(i)));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Close Statement
+        try {
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        try {
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return data;
+    }
+
     /**
      * Getter for the Connection object;
      * @return Connection object
