@@ -111,7 +111,6 @@ public class InvUsageController {
             alert.setContentText("Check your start and end date");
             alert.showAndWait();
         }
-        //db.closeConnection();
     }
 
 
