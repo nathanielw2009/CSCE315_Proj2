@@ -132,7 +132,7 @@ public class MainController {
     }
 
     public void invUsageHandler(MouseEvent e){
-        FXMLLoader fxmlLoader= new FXMLLoader(MainController.class.getResource("form5.fxml"));
+        FXMLLoader fxmlLoader= new FXMLLoader(MainController.class.getResource("invUsage.fxml"));
         Parent root1 = null;
         try {
             root1 = (Parent) fxmlLoader.load();
