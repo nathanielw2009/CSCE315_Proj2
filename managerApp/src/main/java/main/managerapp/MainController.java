@@ -36,6 +36,9 @@ public class MainController {
     private Button refreshButton;
 
     @FXML
+    private Button invUsageButton;
+
+    @FXML
     private ListView<String> menuList;
 
     @FXML
@@ -128,6 +131,21 @@ public class MainController {
         }
     }
 
+    public void invUsageHandler(MouseEvent e){
+        FXMLLoader fxmlLoader= new FXMLLoader(MainController.class.getResource("form5.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("ABC");
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
 
     public void initialize(){
         // Start Connection with Database
@@ -141,6 +159,8 @@ public class MainController {
         addInventoryButton.setOnMouseClicked(mouseEvent -> addInventoryHandler(mouseEvent));
         updateInventoryButton.setOnMouseClicked(mouseEvent -> updateInventoryHandler(mouseEvent));
         refreshButton.setOnMouseClicked(mouseEvent -> refreshHandler(mouseEvent));
+        invUsageButton.setOnMouseClicked(mouseEvent -> invUsageHandler(mouseEvent));
+
 
         for(HashMap<String, String> m : menuData){
             menuList.getItems().add(m.get("menu_id") + " | " + m.get("menu_name") + " | " + m.get("price") + " | " + m.get("menu_description"));
