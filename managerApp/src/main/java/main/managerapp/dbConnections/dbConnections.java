@@ -3,6 +3,7 @@ package main.managerapp.dbConnections;
 
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.util.Pair;
 
 import java.sql.*;
@@ -288,7 +289,12 @@ public class    dbConnections {
                 data.add(new Pair<String, Float>(resp.getString(1), new Float(resp.getFloat(2))));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            // TODO add error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("SQL query for the Inventory Usage got exception ");
+            alert.setContentText("Check your start and end date");
+            alert.showAndWait();
         }
 
         // Close Statement

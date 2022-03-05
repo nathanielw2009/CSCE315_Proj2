@@ -141,8 +141,7 @@ public class MainController {
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("ABC");
+        stage.setTitle("Inventory Usage");
         stage.setScene(new Scene(root1));
         stage.show();
     }

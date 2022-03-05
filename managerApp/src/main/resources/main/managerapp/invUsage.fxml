@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="811.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.managerapp.InvUsageController">
+<AnchorPane fx:id="invUsgAP" prefHeight="811.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.managerapp.InvUsageController">
     <children>
         <BorderPane prefHeight="811.0" prefWidth="807.0">
             <center>
