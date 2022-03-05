@@ -33,6 +33,9 @@ public class MainController {
     private Button updateInventoryButton;
 
     @FXML
+    private Button popularButton;
+
+    @FXML
     private Button refreshButton;
 
     @FXML
@@ -109,7 +112,22 @@ public class MainController {
         stage.setScene(new Scene(root1));
         stage.show();
     }
-
+//    havent edited from copy pasted updateInvHandler
+    public void popularHandler(MouseEvent e){
+        FXMLLoader fxmlLoader= new FXMLLoader(MainController.class.getResource("popular.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Order Popularity");
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
     private void refreshHandler(MouseEvent mouseEvent) {
         ArrayList<String> columns = new ArrayList<String>(Arrays.asList("menu_id", "menu_name", "menu_description"));
         ArrayList<HashMap<String, String>> menuData = db.getColumns("menu", columns);
@@ -140,6 +158,7 @@ public class MainController {
         updateMenuButton.setOnMouseClicked(mouseEvent -> updateMenuHandler(mouseEvent));
         addInventoryButton.setOnMouseClicked(mouseEvent -> addInventoryHandler(mouseEvent));
         updateInventoryButton.setOnMouseClicked(mouseEvent -> updateInventoryHandler(mouseEvent));
+        popularButton.setOnMouseClicked(mouseEvent -> popularHandler(mouseEvent));
         refreshButton.setOnMouseClicked(mouseEvent -> refreshHandler(mouseEvent));
 
         for(HashMap<String, String> m : menuData){
