@@ -54,12 +54,10 @@ public class InvUsageController {
     private Button submitButton;
     @FXML
     private TableView<InvResultData> resultTable;
-
     @FXML
     private TableColumn<InvResultData, String> nameColumn;
     @FXML
     private TableColumn<InvResultData, Float> quantityCol;
-
 
     private dbConnections db;
 

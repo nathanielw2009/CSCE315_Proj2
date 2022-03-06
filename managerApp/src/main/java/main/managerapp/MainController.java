@@ -59,8 +59,8 @@ public class MainController {
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("ABC");
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Add Menu");
         stage.setScene(new Scene(root1));
         stage.show();
     }
@@ -75,8 +75,8 @@ public class MainController {
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("ABC");
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Update Menu");
         stage.setScene(new Scene(root1));
         stage.show();
     }
@@ -91,8 +91,8 @@ public class MainController {
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("ABC");
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Add Inventory");
         stage.setScene(new Scene(root1));
         stage.show();
     }
@@ -107,8 +107,8 @@ public class MainController {
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("ABC");
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Update Inventory");
         stage.setScene(new Scene(root1));
         stage.show();
     }
