@@ -47,20 +47,19 @@ public class popController{
                 ArrayList<String> linkColumns = new ArrayList<String>(Arrays.asList("order_id", "menu_id"));
                 ArrayList<HashMap<String, String>> linkData = db.getColumns("order_menu_link", linkColumns);
 
+                ArrayList<String> menuColumn = new ArrayList<String>(Arrays.asList("menu_id"));
+                ArrayList<HashMap<String, String>> menuData = db.getColumns("menu", menuColumn);
+
                 HashMap<String, Integer> popData = new HashMap<String, Integer>();
-                // not final just to check, doesnt incorporate new values
-                // that are put into database
-                for (int i = 1; i < 20; i++) {
-                        String menu_id = "5";
-                        String incVal = Integer.toString(i);
-                        if (i <= 9) {
-                                incVal = "0" + incVal;
-                        }
-                        String keyVal = menu_id + incVal;
-                        popData.put(keyVal, 0);
+
+                // adds menuIDs into popData to count occurence of later
+                for (HashMap<String, String> ID : menuData){
+                        String menuID = ID.get("menu_id");
+                        //System.out.println(menuID);
+                        popData.put(menuID, 0);
                 }
 
-                // need to us queries, temporary "fix"
+                // need to use queries, temporary "fix"
                 // loops through the dates taken from user
                 for (LocalDate date = fromDateREAL; date.isBefore(toDateREAL.plusDays(1)); date = date.plusDays(1)) {
                         // look through the initial orderData to find the current date
@@ -107,6 +106,12 @@ public class popController{
                         popList.getItems().add(i.getKey() + " | " + i.getValue());
                         counter++;
                 }
+
+
+
+
+
+
         }
 
         public void initialize(){
