@@ -123,7 +123,7 @@ public class MainController {
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Order Popularity");
         stage.setScene(new Scene(root1));
         stage.show();

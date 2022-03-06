@@ -40,14 +40,16 @@ public class popController{
                 String toDate = toField.getText();
                 LocalDate toDateREAL = LocalDate.parse(toDate);
 
-
+                //Queries db for orders
                 ArrayList<String> columns = new ArrayList<String>(Arrays.asList("order_id", "order_date"));
                 ArrayList<HashMap<String, String>> orderData = db.getColumns("\"order\"", columns);
 
+                //Queries db for the data linked to the order
                 ArrayList<String> linkColumns = new ArrayList<String>(Arrays.asList("order_id", "menu_id"));
                 ArrayList<HashMap<String, String>> linkData = db.getColumns("order_menu_link", linkColumns);
 
-                ArrayList<String> menuColumn = new ArrayList<String>(Arrays.asList("menu_id"));
+                // Queries db for menu data
+                ArrayList<String> menuColumn = new ArrayList<String>(Arrays.asList("menu_id", "menu_name"));
                 ArrayList<HashMap<String, String>> menuData = db.getColumns("menu", menuColumn);
 
                 HashMap<String, Integer> popData = new HashMap<String, Integer>();
@@ -55,7 +57,7 @@ public class popController{
                 // adds menuIDs into popData to count occurence of later
                 for (HashMap<String, String> ID : menuData){
                         String menuID = ID.get("menu_id");
-                        //System.out.println(menuID);
+//                        System.out.println(menuID);
                         popData.put(menuID, 0);
                 }
 
@@ -103,15 +105,17 @@ public class popController{
                         if (counter > 9) {
                                 break;
                         }
-                        popList.getItems().add(i.getKey() + " | " + i.getValue());
+                        for (HashMap<String, String> ID : menuData){
+                                String currID = i.getKey();
+                                //System.out.println(currID);
+                                if (currID.equals(ID.get("menu_id"))){
+                                        //System.out.println(currID);
+                                        String foodName = ID.get("menu_name");
+                                        popList.getItems().add(i.getKey() + " | " + foodName + " | "  + i.getValue());
+                                }
+                        }
                         counter++;
                 }
-
-
-
-
-
-
         }
 
         public void initialize(){
