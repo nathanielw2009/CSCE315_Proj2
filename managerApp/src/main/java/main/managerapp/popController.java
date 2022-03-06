@@ -12,12 +12,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.managerapp.dbConnections.dbConnections;
+import static java.util.Collections.reverseOrder;
 import java.time.LocalDate;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class popController{
 
@@ -34,9 +34,9 @@ public class popController{
 
         public void submitHandler(MouseEvent e) {
 
+                // gets the dates from the user
                 String fromDate = fromField.getText();
                 LocalDate fromDateREAL = LocalDate.parse(fromDate);
-
                 String toDate = toField.getText();
                 LocalDate toDateREAL = LocalDate.parse(toDate);
 
@@ -44,75 +44,69 @@ public class popController{
                 ArrayList<String> columns = new ArrayList<String>(Arrays.asList("order_id", "order_date"));
                 ArrayList<HashMap<String, String>> orderData = db.getColumns("\"order\"", columns);
 
-                for(HashMap<String, String> m : orderData){
-                        popList.getItems().add(m.get("order_id") + " | " + m.get("order_date"));
-                }
-
                 ArrayList<String> linkColumns = new ArrayList<String>(Arrays.asList("order_id", "menu_id"));
                 ArrayList<HashMap<String, String>> linkData = db.getColumns("order_menu_link", linkColumns);
 
-//                for(HashMap<String, String> m : linkData){
-//                        popList.getItems().add(m.get("order_id") + " | " + m.get("menu_id"));
-//                }
-                // Hashmap of the menu_id, to increment popularity later
-//                ArrayList<String> popColumns = new ArrayList<String>(Arrays.asList("menu_id"));
-//                ArrayList<HashMap<String, Integer>> popData = new HashMap<String, Integer>();
-//                HashMap<String, Integer> popData = new HashMap<String, Integer>();
-//                popData.put("501", 0);
-//                popData.put("502", 0);
-                // loops through the dates taken from user
-                for (LocalDate date = fromDateREAL; date.isBefore(toDateREAL); date = date.plusDays(1)){
-                        //System.out.println(date);
-                        System.out.println("TEST2222");
-                        // look through the initial orderData to find the current Data
-                        for(HashMap<String, String> m : orderData){
-                               LocalDate currDate = LocalDate.parse(m.get("order_date"));
-//                                System.out.println(currDate);
-                               if (currDate.isEqual(date)){
-                                       System.out.println(currDate);
-                                       String currOrder = m.get("order_id");
-                                       // once order_id is found, find the menu_id associated with it and add to hashmap?
-                                       for(HashMap<String, String> o : linkData){
-                                                if (currOrder == o.get("order_id")){
-                                                        String currMenu = o.get("menu_id");
-                                                        if (currMenu == "501"){
-                                                                System.out.println("501");
-                                                        }
-//                                                        for(HashMap<String, Integer> p : popData){
-//                                                                if (currMenu == 0){
-//
-//                                                                }
-//                                                        }
-
-                                                }
-                                       }
-                               }
+                HashMap<String, Integer> popData = new HashMap<String, Integer>();
+                // not final just to check, doesnt incorporate new values
+                // that are put into database
+                for (int i = 1; i < 20; i++) {
+                        String menu_id = "5";
+                        String incVal = Integer.toString(i);
+                        if (i <= 9) {
+                                incVal = "0" + incVal;
                         }
+                        String keyVal = menu_id + incVal;
+                        popData.put(keyVal, 0);
                 }
 
-//                ArrayList<String> columns = new ArrayList<String>(Arrays.asList("menu_id", "menu_name", "menu_description", "price"));
-//                ArrayList<HashMap<String, String>> menuData = db.getColumns("menu1", columns);
-//
-//                for(HashMap<String, String> m : menuData){
-//                        popList.getItems().add(m.get("menu_id") + " | " + m.get("menu_name") + " | " + m.get("price") + " | " + m.get("menu_description"));
-//                }
-//                fromField.getText();
-//                HashMap<String, String> fields =  new HashMap<String, String>();
-//
-//
-//                if(!nameField.getText().isEmpty()){
-//                        fields.put("menu_name", nameField.getText());
-//                }
-//                if(!priceField.getText().isEmpty()){
-//                        fields.put("price", priceField.getText());
-//                }
-//                if(!descriptionField.getText().isEmpty()){
-//                        fields.put("menu_description", descriptionField.getText());
-//                }
-//
-//                db.updateIndividual("menu", fields, "menu_id", idField.getText());
-//
-//                db.closeConnection();
+                // need to us queries, temporary "fix"
+                // loops through the dates taken from user
+                for (LocalDate date = fromDateREAL; date.isBefore(toDateREAL.plusDays(1)); date = date.plusDays(1)) {
+                        // look through the initial orderData to find the current date
+                        for (HashMap<String, String> m : orderData) {
+                                LocalDate currDate = LocalDate.parse(m.get("order_date"));
+                                if (currDate.isEqual(date)) {
+                                        String currOrder = m.get("order_id");
+
+                                        // once order_id is found, find the menu_id associated with it
+                                        for (HashMap<String, String> o : linkData) {
+                                                String nextOrder = o.get("order_id");
+                                                if (currOrder.equals(nextOrder)) {
+                                                        String currMenu = o.get("menu_id");
+
+                                                        // find the corresponding menu_id in popData
+                                                        // and increment value for population
+                                                        for (HashMap.Entry<String, Integer> p : popData.entrySet()) {
+                                                                String dataMenu = p.getKey();
+                                                                int dataValue = p.getValue();
+                                                                int incByOne = 1;
+                                                                if (currMenu.equals(dataMenu)) {
+                                                                        popData.put(dataMenu, dataValue + incByOne);
+
+                                                                }
+                                                        }
+
+                                                }
+                                        }
+                                }
+                        }
+                }
+                // sorts the hashmap in descending order
+                List<HashMap.Entry<String, Integer>> sorted_map = popData.entrySet()
+                        .stream()
+                        .sorted(reverseOrder(HashMap.Entry.comparingByValue()))
+                        .collect(Collectors.toList());
+
+                // limits list to 10 menu items
+                int counter = 0;
+                for (Map.Entry<String, Integer> i : sorted_map) {
+                        if (counter > 9) {
+                                break;
+                        }
+                        popList.getItems().add(i.getKey() + " | " + i.getValue());
+                        counter++;
+                }
         }
 
         public void initialize(){
