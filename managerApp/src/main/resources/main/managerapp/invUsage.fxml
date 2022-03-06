@@ -21,7 +21,7 @@
                             <children>
                         <HBox alignment="CENTER" prefHeight="64.0" prefWidth="339.0">
                            <children>
-                                      <Label prefHeight="63.0" prefWidth="96.0" text="Start Date:" />
+                               <Label prefHeight="63.0" prefWidth="96.0" text="Start Date:" />
                               <TextField fx:id="startDateField" alignment="CENTER" prefHeight="25.0" prefWidth="183.0" />
                            </children>
                            <HBox.margin>
@@ -31,7 +31,7 @@
                         <HBox alignment="CENTER" prefHeight="64.0" prefWidth="321.0">
                            <children>
                               <Label prefHeight="17.0" prefWidth="98.0" text="End Date:" />
-                              <TextField fx:id="endDateField" prefHeight="25.0" prefWidth="195.0" />
+                              <TextField fx:id="endDateField" alignment="CENTER" prefHeight="25.0" prefWidth="195.0" />
                            </children>
                         </HBox>
                         <Button fx:id="submitButton" alignment="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="150.0" text="Submit" />
@@ -43,7 +43,7 @@
                         <Insets right="100.0" />
                      </padding>
                         </HBox>
-                  <TableView fx:id="resultTable" prefHeight="550.0" prefWidth="807.0">
+                  <TableView fx:id="resultTable" prefHeight="753.0" prefWidth="807.0">
                     <columns>
                       <TableColumn fx:id="nameColumn" prefWidth="402.6667175292969" text="Name" />
                       <TableColumn fx:id="quantityCol" minWidth="0.0" prefWidth="403.99993896484375" text="Quantity Used" />
