@@ -20,30 +20,11 @@ import java.util.HashMap;
 
 public class ImpTenderController {
 
-
-    @FXML
-    private TextField categoryField;
-
-    @FXML
-    private TextField foodDescField;
-
-    @FXML
-    private TextField foodIDField;
-
-    @FXML
-    private TextField foodNameField;
-
     @FXML
     private TextField menuDescField;
 
     @FXML
     private TextField menuIDField;
-
-    @FXML
-    private TextField entryIDField;
-
-    @FXML
-    private TextField quantityField;
 
     @FXML
     private TextField menuNameField;
@@ -52,36 +33,17 @@ public class ImpTenderController {
     private TextField priceField;
 
     @FXML
-    private TextField quanUsedField;
-
-    @FXML
-    private TextField skuField;
+    private TextField categoryField;
 
     @FXML
     private Button submitButton;
 
+    @FXML
+    private Button addFoodButton;
+
     private dbConnections db;
 
     public void submitHandler(MouseEvent e) {
-
-        HashMap<String, String> food_and_drink_fields = new HashMap<String, String>();
-        food_and_drink_fields.put("food_description", foodDescField.getText());
-        food_and_drink_fields.put("food_id", foodIDField.getText());
-        food_and_drink_fields.put("food_name", foodNameField.getText());
-
-        ArrayList<HashMap<String, String>> fd_table = new ArrayList<HashMap<String, String>>();
-        fd_table.add(food_and_drink_fields);
-        ArrayList<String> nothing = new ArrayList<String>();
-        db.insertData("food_and_drinks", fd_table, nothing);
-
-        HashMap<String, String> food_inventory_fields = new HashMap<String, String>();
-        food_inventory_fields.put("sku", skuField.getText());
-        food_inventory_fields.put("food_id", foodIDField.getText());
-        food_inventory_fields.put("quantity_used_per_food", quanUsedField.getText());
-
-        ArrayList<HashMap<String, String>> fi_table = new ArrayList<HashMap<String, String>>();
-        fi_table.add(food_inventory_fields);
-        db.insertData("food_inventory", fi_table, nothing);
 
         HashMap<String, String> menu_fields = new HashMap<String, String>();
         menu_fields.put("menu_description", menuDescField.getText());
@@ -90,19 +52,10 @@ public class ImpTenderController {
         menu_fields.put("price", priceField.getText());
         menu_fields.put("category", categoryField.getText());
 
+        ArrayList<String> nothing = new ArrayList<String>();
         ArrayList<HashMap<String, String>> menu_table = new ArrayList<HashMap<String, String>>();
         menu_table.add(menu_fields);
         db.insertData("menu", menu_table, nothing);
-
-        HashMap<String, String> menu_food_link_fields = new HashMap<String, String>();
-        menu_food_link_fields.put("food_id", foodIDField.getText());
-        menu_food_link_fields.put("entry_id", entryIDField.getText());
-        menu_food_link_fields.put("menu_id", menuIDField.getText());
-        menu_food_link_fields.put("quantity", quantityField.getText());
-
-        ArrayList<HashMap<String, String>> mfl_table = new ArrayList<HashMap<String, String>>();
-        mfl_table.add(menu_food_link_fields);
-        db.insertData("menu_food_link", mfl_table, nothing);
 
         db.closeConnection();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -113,10 +66,26 @@ public class ImpTenderController {
 
     }
 
+    public void impAddFoodHandler(MouseEvent e){
+        FXMLLoader fxmlLoader= new FXMLLoader(MainController.class.getResource("ImpAddFood.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Add Menu");
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
     public void initialize() {
         db = new dbConnections();
 
         submitButton.setOnMouseClicked(mouseEvent -> submitHandler(mouseEvent));
+        addFoodButton.setOnMouseClicked(mouseEvent -> impAddFoodHandler(mouseEvent));
 
     }
 }

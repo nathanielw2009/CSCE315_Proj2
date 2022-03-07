@@ -16,36 +16,6 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="sku" />
-                        <TextField fx:id="skuField" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="food ID" />
-                        <TextField fx:id="foodIDField" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="food name" />
-                        <TextField fx:id="foodNameField" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="food description" />
-                        <TextField fx:id="foodDescField" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="quantity used" />
-                        <TextField fx:id="quanUsedField" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
-                     <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="menu id" />
                         <TextField fx:id="menuIDField" />
                      </children>
@@ -62,33 +32,22 @@
                         <TextField fx:id="menuDescField" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="583.0" prefHeight="50.0" prefWidth="811.0">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="price" />
                         <TextField fx:id="priceField" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="608.0" prefHeight="50.0" prefWidth="811.0">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="811.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="category" />
                         <TextField fx:id="categoryField" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="489.0" prefHeight="50.0" prefWidth="811.0">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="655.0" prefHeight="50.0" prefWidth="811.0" spacing="50.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="entry ID" />
-                        <TextField fx:id="entryIDField" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="664.0" prefHeight="50.0" prefWidth="811.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0" text="quantity" />
-                        <TextField fx:id="quantityField" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="655.0" prefHeight="50.0" prefWidth="811.0">
-                     <children>
-                        <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Submit" />
+                        <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Submit" />
+                        <Button fx:id="addFoodButton" alignment="CENTER" contentDisplay="CENTER" layoutX="381.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Add Food Link" />
                      </children>
                   </HBox>
                </children>
