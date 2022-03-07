@@ -1,10 +1,8 @@
 package main.employee.dbConnections;
 
 
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class dbConnections {
@@ -70,14 +68,14 @@ public class dbConnections {
             System.exit(1);
         }
         // Return Data
-        ArrayList<HashMap<String, String>> data = new ArrayList<>();
+        ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
 
         try {
             ResultSet resp = stmt.executeQuery(query);
             while (resp.next()){
                 data.add(new HashMap<String, String>());
                 for(int i = 0; i < resp.getMetaData().getColumnCount(); i++){
-                    data.get(data.size()-1).put(resp.getMetaData().getColumnName(i), resp.getString(resp.getMetaData().getColumnName(i)));
+                    data.get(data.size()-1).put(resp.getMetaData().getColumnName(i+1), resp.getString(resp.getMetaData().getColumnName(i+1)));
                 }
             }
 
