@@ -1,11 +1,16 @@
 package main.managerapp.dbConnections;
 
 
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.util.Pair;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class dbConnections {
+public class    dbConnections {
     private Connection conn;
 
     /**
@@ -297,6 +302,58 @@ public class dbConnections {
         return data;
 
     }
+
+
+    public ArrayList<Pair<String,Float>> getQuantityUsed(String startDate, String endDate){
+        // Create the query
+        StringBuilder queryDB = new StringBuilder("select ii.description as name, sum(mfl.quantity * fi.quantity_used_per_food) as quantityUsed " +
+                "from inventory_items ii, food_inventory fi, \"order\" ord, order_menu_link oml, menu_food_link mfl " +
+                "where ii.sku = fi.sku and oml.order_id = ord.order_id and oml.menu_id = mfl.menu_id and fi.food_id = mfl.food_id " +
+                "     and ord.order_date >= '");
+        queryDB.append(startDate).append("' and ord.order_date <= '").append(endDate).append("' group by name order by name; ");
+
+        // Execute the command
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        // Return Data
+        ArrayList<Pair<String, Float>> data = new ArrayList<>();
+
+        try {
+            ResultSet resp = stmt.executeQuery(queryDB.toString());
+            while (resp.next()){
+                data.add(new Pair<String, Float>(resp.getString(1), new Float(resp.getFloat(2))));
+            }
+        } catch (SQLException e) {
+            // TODO add error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("SQL query for the Inventory Usage got exception ");
+            alert.setContentText("Check your start and end date");
+            alert.showAndWait();
+        }
+
+        // Close Statement
+        try {
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        try {
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return data;
+    }
+
 
     /**
      * Close the db Connection
