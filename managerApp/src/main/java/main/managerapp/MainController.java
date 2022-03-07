@@ -47,6 +47,8 @@ public class MainController {
     @FXML
     private ListView<String> inventoryList;
 
+    @FXML
+    private Button restockOperations;
 
     private dbConnections db;
 
@@ -80,6 +82,22 @@ public class MainController {
         stage.initModality(Modality.APPLICATION_MODAL);
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Update Menu");
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
+
+    public void restockOperationsHandler(MouseEvent e){
+        FXMLLoader fxmlLoader= new FXMLLoader(MainController.class.getResource("restock.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Restock Operations");
         stage.setScene(new Scene(root1));
         stage.show();
     }
@@ -178,6 +196,7 @@ public class MainController {
         popularButton.setOnMouseClicked(mouseEvent -> popularHandler(mouseEvent));
         refreshButton.setOnMouseClicked(mouseEvent -> refreshHandler(mouseEvent));
         invUsageButton.setOnMouseClicked(mouseEvent -> invUsageHandler(mouseEvent));
+        restockOperations.setOnMouseClicked(mouseEvent -> restockOperationsHandler(mouseEvent));
 
 
         for(HashMap<String, String> m : menuData){

@@ -5,7 +5,8 @@ module main.managerapp {
     requires org.controlsfx.controls;
     requires java.sql;
     requires validatorfx;
+    requires com.jfoenix;
 
-    opens main.managerapp to javafx.fxml;
     exports main.managerapp;
+    opens main.managerapp to javafx.fxml;
 }

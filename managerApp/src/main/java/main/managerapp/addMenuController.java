@@ -66,4 +66,7 @@ public class addMenuController {
         submitButton.setOnMouseClicked(mouseEvent -> submitHandler(mouseEvent));
 
     }
+
+    public static class restockInv {
+    }
 }
