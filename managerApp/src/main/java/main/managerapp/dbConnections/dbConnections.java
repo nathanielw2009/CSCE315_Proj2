@@ -75,7 +75,7 @@ public class dbConnections {
             while (resp.next()){
                 data.add(new HashMap<String, String>());
                 for(int i = 0; i < resp.getMetaData().getColumnCount(); i++){
-                    data.get(data.size()-1).put(resp.getMetaData().getColumnName(i), resp.getString(resp.getMetaData().getColumnName(i)));
+                    data.get(data.size()-1).put(resp.getMetaData().getColumnName(i+1), resp.getString(resp.getMetaData().getColumnName(i+1)));
                 }
             }
 
