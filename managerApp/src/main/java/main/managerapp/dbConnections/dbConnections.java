@@ -290,6 +290,7 @@ public class    dbConnections {
             }
 
         } catch (SQLException e) {
+            data = null;
             e.printStackTrace();
         }
 
