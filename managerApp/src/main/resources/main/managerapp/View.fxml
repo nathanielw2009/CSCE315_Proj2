@@ -18,8 +18,6 @@
                <children>
                   <Button fx:id="addMenuButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Add Menu" />
                   <Button fx:id="updateMenuButton" mnemonicParsing="false" prefHeight="110.0" prefWidth="279.0" text="Update Menu" />
-                  <Button fx:id="addInventoryButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Add Inventory" />
-                  <Button fx:id="updateInventoryButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Update Inventory" />
                   <Button fx:id="popularButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Order Popularity" />
                   <Button fx:id="refreshButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Refresh" />
                   <Button fx:id="invUsageButton" mnemonicParsing="false" prefHeight="112.0" prefWidth="279.0" text="Inventory Usage" />
