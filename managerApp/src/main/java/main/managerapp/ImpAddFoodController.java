@@ -3,6 +3,7 @@ package main.managerapp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -42,6 +43,9 @@ public class ImpAddFoodController {
     private TextField skuField;
 
     @FXML
+    private RadioButton addNewFood;
+
+    @FXML
     private Button submitButton;
 
     private dbConnections db;
@@ -50,16 +54,17 @@ public class ImpAddFoodController {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.setOnCloseRequest( ev ->  db.closeConnection());
 
-        HashMap<String, String> food_and_drink_fields = new HashMap<String, String>();
-        food_and_drink_fields.put("food_description", foodDescField.getText());
-        food_and_drink_fields.put("food_id", foodIDField.getText());
-        food_and_drink_fields.put("food_name", foodNameField.getText());
-
-        ArrayList<HashMap<String, String>> fd_table = new ArrayList<HashMap<String, String>>();
-        fd_table.add(food_and_drink_fields);
         ArrayList<String> nothing = new ArrayList<String>();
-        db.insertData("food_and_drinks", fd_table, nothing);
+        if (addNewFood.isSelected()) {
+            HashMap<String, String> food_and_drink_fields = new HashMap<String, String>();
+            food_and_drink_fields.put("food_description", foodDescField.getText());
+            food_and_drink_fields.put("food_id", foodIDField.getText());
+            food_and_drink_fields.put("food_name", foodNameField.getText());
 
+            ArrayList<HashMap<String, String>> fd_table = new ArrayList<HashMap<String, String>>();
+            fd_table.add(food_and_drink_fields);
+            db.insertData("food_and_drinks", fd_table, nothing);
+        }
         HashMap<String, String> food_inventory_fields = new HashMap<String, String>();
         food_inventory_fields.put("sku", skuField.getText());
         food_inventory_fields.put("food_id", foodIDField.getText());
