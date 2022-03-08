@@ -172,7 +172,6 @@ public class MainController {
             d.setAlignment(Pos.CENTER);
             VBox box = new VBox();
             d.setPadding(new Insets(10,5,10,5));
-            d.setStyle("-fx-background-color: blue");
             d.setMaxWidth(Double.MAX_VALUE);
             d.textAlignmentProperty().set(TextAlignment.CENTER);
             d.setMinWidth(box.getPrefWidth());

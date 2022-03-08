@@ -27,12 +27,6 @@ public class MainController {
     private Button updateMenuButton;
 
     @FXML
-    private Button addInventoryButton;
-
-    @FXML
-    private Button updateInventoryButton;
-
-    @FXML
     private Button popularButton;
 
     @FXML
@@ -191,8 +185,6 @@ public class MainController {
 
         addMenuButton.setOnMouseClicked(mouseEvent -> addMenuHandler(mouseEvent));
         updateMenuButton.setOnMouseClicked(mouseEvent -> updateMenuHandler(mouseEvent));
-        addInventoryButton.setOnMouseClicked(mouseEvent -> addInventoryHandler(mouseEvent));
-        updateInventoryButton.setOnMouseClicked(mouseEvent -> updateInventoryHandler(mouseEvent));
         popularButton.setOnMouseClicked(mouseEvent -> popularHandler(mouseEvent));
         refreshButton.setOnMouseClicked(mouseEvent -> refreshHandler(mouseEvent));
         invUsageButton.setOnMouseClicked(mouseEvent -> invUsageHandler(mouseEvent));
