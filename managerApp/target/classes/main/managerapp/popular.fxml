@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="564.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.managerapp.popController">
     <children>
@@ -19,32 +18,29 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label prefHeight="40.0" prefWidth="80.0" text="FROM" />
-                                <TextField fx:id="fromField" promptText="Format: 2022-01-30" />
+                                <Label prefHeight="40.0" prefWidth="80.0" text="FROM:" />
+                                <TextField fx:id="fromField" promptText="Format: 2022-02-16" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label prefHeight="40.0" prefWidth="80.0" text="TO" />
-                                <TextField fx:id="toField" promptText="Format: 2022-02-02" />
+                                <Label prefHeight="40.0" prefWidth="80.0" text="TO:" />
+                                <TextField fx:id="toField" promptText="Format: 2022-02-28" />
                             </children>
                         </HBox>
-                        <Button fx:id="submitButton" mnemonicParsing="false" prefHeight="62.0" prefWidth="107.0" text="Submit">
-                     <font>
-                        <Font size="13.0" />
-                     </font></Button>
-                  <TextField editable="false" text="                                                 Top 10 Most Popular Food Items">
-                     <opaqueInsets>
-                        <Insets left="20.0" right="20.0" />
-                     </opaqueInsets>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextField>
-                  <ListView fx:id="popList" prefHeight="314.0" prefWidth="388.0">
-                     <opaqueInsets>
-                        <Insets left="20.0" right="20.0" />
-                     </opaqueInsets></ListView>
+                        <Button fx:id="submitButton" mnemonicParsing="false" prefHeight="44.0" prefWidth="94.0" text="Submit" />
+                        <TextField editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" text="Top 10 Most Popular Food Items ">
+                            <VBox.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </VBox.margin>
+                        </TextField>
+                        <ListView fx:id="popList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="325.0" prefWidth="400.0">
+                            <padding>
+                                <Insets bottom="10.0" />
+                            </padding>
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin></ListView>
                     </children>
                 </VBox>
             </center>
