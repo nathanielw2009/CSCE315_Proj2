@@ -12,29 +12,25 @@
          <children>
             <VBox alignment="CENTER" prefHeight="104.0" prefWidth="225.0">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Update Inventory" textAlignment="CENTER" />
+                  <JFXButton fx:id="updateInventoryButton" alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Update Inventory" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="104.0" prefWidth="225.0">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Restock to FIll Level" textAlignment="CENTER" />
+                  <JFXButton fx:id="restockButton" alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Restock to FIll Level" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="114.0" prefHeight="104.0" prefWidth="225.0">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Preview Restock Report" textAlignment="CENTER" />
+                  <JFXButton fx:id="previewButton" alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Preview Restock Report" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox alignment="CENTER" layoutX="10.0" layoutY="218.0" prefHeight="104.0" prefWidth="225.0">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Commit" textAlignment="CENTER" />
+                  <JFXButton fx:id="commitButton" alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Commit" textAlignment="CENTER" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" layoutX="10.0" layoutY="322.0" prefHeight="104.0" prefWidth="225.0">
-               <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="66.0" prefWidth="240.0" ripplerFill="#862727" text="Close" textAlignment="CENTER" />
-               </children>
-            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="322.0" prefHeight="104.0" prefWidth="225.0" />
          </children></VBox>
    </right>
    <center>

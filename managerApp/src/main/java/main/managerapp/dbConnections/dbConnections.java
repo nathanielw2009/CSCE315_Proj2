@@ -1,8 +1,6 @@
 package main.managerapp.dbConnections;
 
 
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.util.Pair;
 
@@ -65,6 +63,10 @@ public class    dbConnections {
     }
 
     public ArrayList<HashMap<String,String>> customQuery(String query){
+        return customQuery(query, true);
+    }
+
+    public ArrayList<HashMap<String, String>> customQuery(String query, boolean hasReturn){
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
@@ -76,13 +78,19 @@ public class    dbConnections {
         ArrayList<HashMap<String, String>> data = new ArrayList<>();
 
         try {
-            ResultSet resp = stmt.executeQuery(query);
-            while (resp.next()){
-                data.add(new HashMap<String, String>());
-                for(int i = 0; i < resp.getMetaData().getColumnCount(); i++){
-                    data.get(data.size()-1).put(resp.getMetaData().getColumnName(i+1), resp.getString(resp.getMetaData().getColumnName(i+1)));
+
+            if (hasReturn) {
+                ResultSet resp = stmt.executeQuery(query);
+                while (resp.next()){
+                    data.add(new HashMap<String, String>());
+                    for(int i = 0; i < resp.getMetaData().getColumnCount(); i++){
+                        data.get(data.size()-1).put(resp.getMetaData().getColumnName(i+1), resp.getString(resp.getMetaData().getColumnName(i+1)));
+                    }
                 }
+            }else{
+                stmt.executeUpdate(query);
             }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -180,7 +188,7 @@ public class    dbConnections {
         StringBuilder query = new StringBuilder("UPDATE ").append(tableName).append(" SET\n");
         ArrayList<String> colVal = new ArrayList<String>(values.keySet());
         for(int i = 0;i < colVal.size() -1 ;i++){
-            query.append(colVal.get(i)).append(" = ").append(values.get(colVal.get(i))).append(", \n");
+            query.append(colVal.get(i)).append(" = '").append(values.get(colVal.get(i))).append("', \n");
         }
         query.append(colVal.get(colVal.size() -1)).append(" = ").append("'").append(values.get(colVal.get(colVal.size()-1))).append("'");
         query.append("WHERE ").append(whereCol).append(" = ").append("'").append(isEqualTo).append("'").append(";");
